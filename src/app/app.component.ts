@@ -43,7 +43,7 @@ export class AppComponent implements OnInit {
     this.router.navigate(['login'])
   }
   redirectW(){
-    const urlWhatsApp = 'https://api.whatsapp.com/send?phone=573177159222';
+    const urlWhatsApp = 'https://api.whatsapp.com/send?phone=573054029445';
     window.open(urlWhatsApp, '_blank'); // Abre en una nueva ventana o pestaña
     // O puedes usar router.navigate para redirigir en la misma ventana
     // this.router.navigate(['/']); // Por ejemplo, redirigir a la página de inicio de tu aplicación Angular

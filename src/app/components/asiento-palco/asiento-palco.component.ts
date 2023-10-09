@@ -109,7 +109,7 @@ export class AsientoPalcoComponent implements AfterViewInit, OnInit {
       
     }else{
       Swal.fire({
-        title: 'Antes de continuar por favor Inicie Sesión',
+        title: 'Antes de continuar por favor Inicie Sesión o registrese en la plataforma de MyTicket.',
         showDenyButton: false,
         confirmButtonText: 'Aceptar',
       }).then(async (result) => {
