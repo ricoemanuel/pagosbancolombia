@@ -1,32 +1,91 @@
-.margin-c{
-    
+.margin-c {
+
     margin: 0 35px 35px;
     min-height: 70vh;
-    & mat-form-field{
+
+    & mat-form-field {
         width: 100%;
     }
 }
-mat-table{
+
+mat-table {
     background-color: transparent;
 }
-.qr{
-    
+
+.qr {
+
     cursor: pointer;
-    & .texto{
+
+    & .texto {
         color: black;
     }
-    & img{
+
+    & img {
         padding: 5px;
         width: 10vw;
     }
 }
+
 ::ng-deep .modal-dialog {
     max-width: fit-content !important;
 }
-.codigo{
-    margin: 35px;
-}
-.mensaje{
+
+.border {
+    border: 1px solid rgb(185, 182, 182);
+    border-radius: 20px;
     text-align: center;
+}
+
+.entrada {
+
+    min-width: 100px;
+    margin: 10px;
     
+    padding: 20px;
+}
+
+.codigo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 35px;
+    margin-left: 35px;
+    margin-right: 35px;
+
+    & img {
+        width: 180px;
+    }
+}
+
+.mensaje {
+    text-align: center;
+
+}
+
+.datatable {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    border-radius: 9px;
+}
+
+.mensaje_404 {
+    text-align: center;
+    font-size: 24px;
+    /* Tamaño de fuente grande */
+    padding: 20px;
+    /* Espaciado interno */
+    border: 2px solid #ccc;
+    /* Borde opcional */
+    border-radius: 10px;
+    /* Borde redondeado opcional */
+    max-width: 400px;
+    /* Ancho máximo del div */
+    margin: 0 auto;
+    /* Centrar horizontalmente */
+    margin-bottom: 10px;
+    /* Espaciado superior para centrar verticalmente */
+    background-color: #f0f0f0;
+    /* Color de fondo opcional */
 }

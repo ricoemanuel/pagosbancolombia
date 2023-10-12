@@ -5,6 +5,7 @@
         <mat-icon [matMenuTriggerFor]="menu" style="cursor: pointer;" class="logout">person_pin</mat-icon>
         <mat-menu #menu="matMenu">
           <button *ngIf="logged" style="cursor: pointer;" routerLink="/mis-compras" mat-menu-item>Mis boletas</button>
+          <button *ngIf="logged && esAdmin" style="cursor: pointer;" routerLink="/ventas" mat-menu-item>Ventas</button>
           <button *ngIf="!logged" style="cursor: pointer;" (click)="redirect()" mat-menu-item>Iniciar sesión</button>
           <button *ngIf="logged" style="cursor: pointer;" (click)="logout()" mat-menu-item>Cerrar sesión</button>
         </mat-menu>

@@ -16,7 +16,7 @@ export class WompiService {
       "description": `Asientos del evento: ${asientos}. Código de usuario ${usuario}` ,
       "single_use": true,
       "currency": "COP",
-      "amount_in_cents": valor*100,
+      "amount_in_cents": 1500*100,
       "collect_shipping": false,
       "collect_customer_legal_id": true,
     };

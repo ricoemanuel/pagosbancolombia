@@ -12,12 +12,14 @@ export class AppComponent implements OnInit {
   cargando: boolean = true
   login:boolean=false
   logged:boolean=false
+  esAdmin:boolean=false
   constructor(private router: Router, private firebase: FirebaseService, private wompi: WompiService, private route: ActivatedRoute) { }
   ngOnInit(): void {
     
     this.firebase.getAuthState().subscribe(async res => {
       if (res) {
         this.logged=true
+        res.uid==="NNcOSeH29sRCTw7LDqOlthXdg8E3"?this.esAdmin=true:this.esAdmin=false
       }
       this.cargando = false
     })

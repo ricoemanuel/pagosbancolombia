@@ -1,0 +1,78 @@
+<br>
+<div class="buscador">
+    <mat-form-field appearance="outline">
+        <mat-label>Escriba su búsqueda</mat-label>
+        <input matInput (keyup)="applyFilter($event)" #input>
+    </mat-form-field>
+</div>
+<div class="mensaje_404">
+    Mesas totales vendidas: {{cont}}
+</div>
+<div class="mat-elevation-z8 overflow-auto col-md-11 datatable">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+        <ng-container matColumnDef="QR">
+            <mat-header-cell *matHeaderCellDef> Código qr </mat-header-cell>
+            <mat-cell *matCellDef="let elemento">
+                <div class="qr">
+                    <p (click)="openModal(template)">{{elemento.id}}</p>
+                </div>
+
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Evento">
+            <mat-header-cell *matHeaderCellDef> Evento </mat-header-cell>
+            <mat-cell *matCellDef="let elemento">
+                <p style="cursor: pointer;"> {{
+                    elemento.eventoData?elemento.eventoData.nombre:'Ir al evento'
+                    }}</p>
+            </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="Valor">
+            <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
+            <mat-cell *matCellDef="let elemento"> {{
+                ((elemento.transaccion.data.transaction.amount_in_cents)/100).toLocaleString('en-US', {
+                style: 'currency', currency: 'USD' })}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="Nombre">
+            <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
+            <mat-cell *matCellDef="let elemento"> {{
+                elemento.transaccion.data.transaction.customer_data.full_name}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="personas">
+            <mat-header-cell *matHeaderCellDef>Asientos</mat-header-cell>
+            <mat-cell *matCellDef="let elemento">
+                {{formatAsientos(elemento.asientos)}}
+                <br>
+                {{formatZonas(elemento.asientos)}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="transaccion">
+            <mat-header-cell *matHeaderCellDef>Número de transacción</mat-header-cell>
+            <mat-cell *matCellDef="let elemento">
+                {{elemento.transaccion.data.transaction.id}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="fecha">
+            <mat-header-cell *matHeaderCellDef>Fecha de transacción</mat-header-cell>
+            <mat-cell *matCellDef="let elemento">
+                {{formatfecha(elemento.transaccion.data.transaction.finalized_at)}}
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5,10,25, 100]" aria-label="Select page of users"></mat-paginator>
+</div>
+<ng-template #template>
+    <div class="codigo">
+        <img [src]="generateQRCodeBase64(baseSeleccionada)" alt="">
+    </div>
+</ng-template>

@@ -1,55 +1,37 @@
-<div class="margin-c">
-    <div *ngIf="dataSource.data.length>0">
-        <mat-form-field>
-            <mat-label>Búsque su boleta</mat-label>
-            <input matInput (keyup)="applyFilter($event)" placeholder="" #input>
-        </mat-form-field>
-
-        <mat-table [dataSource]="dataSource" class="mat-elevation-z8">
-
-            <ng-container matColumnDef="QR">
-                <mat-header-cell *matHeaderCellDef> Código qr </mat-header-cell>
-                <mat-cell *matCellDef="let elemento">
-                    <div class="qr">
-                        <img (click)="openQR(elemento.id,template)" [src]="generateQRCodeBase64(elemento.id)">
-                         <div class="texto">{{elemento.id}}</div> 
-
+<div class="container">
+    <div class="row justify-content-center">
+        <div *ngFor="let entrada of data" class="col-md-4">
+            <div class="border">
+                <mat-icon style="cursor: pointer;" (click)="generarPDF(entrada.id)">print</mat-icon>
+                <div #content [id]="entrada.id" class="entrada">
+                    <p [routerLink]="'/evento/'+entrada.evento" style="cursor: pointer; font-weight: bold;">
+                        {{entrada.eventoData?entrada.eventoData.nombre:'Ir al evento'}}</p>
+                    <div class="codigo">
+                        <img [src]="generateQRCodeBase64(entrada.id)" alt="">
                     </div>
-                </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="Evento">
-                <mat-header-cell *matHeaderCellDef> Evento </mat-header-cell>
-                <mat-cell *matCellDef="let elemento" >
-                    <p style="cursor: pointer;" [routerLink]="'/evento/'+elemento.evento"> {{
-                   elemento.eventoData?elemento.eventoData.nombre:'Ir al evento'
-                    }}</p>
-                </mat-cell>
-            </ng-container>
-
-            <ng-container matColumnDef="Valor">
-                <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
-                <mat-cell *matCellDef="let elemento"> {{ (elemento.transaccion.data.transaction.amount_in_cents)/100}}
-                </mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="asientos">
-                <mat-header-cell *matHeaderCellDef>Asientos</mat-header-cell>
-                <mat-cell *matCellDef="let elemento"> {{formatAsientos(elemento.asientos)}}</mat-cell>
-            </ng-container>
-            <ng-container matColumnDef="zonas">
-                <mat-header-cell *matHeaderCellDef>Zonas respectivas</mat-header-cell>
-                <mat-cell *matCellDef="let elemento"> {{formatZonas(elemento.asientos)}}</mat-cell>
-            </ng-container>
-
-            <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-            <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-        </mat-table>
-        <mat-paginator [pageSizeOptions]="[10, 25, 50]" showFirstLastButtons></mat-paginator>
-    </div>
-    <div *ngIf="dataSource.data.length===0" class="mensaje">
-        usted no tiene compras aprobadas con nosotros...
+                    <mat-icon> monetization_on</mat-icon>
+                    <br>
+                    {{
+                    ((entrada.transaccion.data.transaction.amount_in_cents)/100).toLocaleString('en-US', {
+                    style: 'currency', currency: 'USD' })}}
+                    <br><br>
+                    <mat-icon>person</mat-icon>
+                    <br>
+                    {{entrada.transaccion.data.transaction.customer_data.full_name}}
+                    <br><br>
+                    <mat-icon>people</mat-icon>
+                    <div class="row justify-content-center" [innerHTML]="formatAsientos(entrada.asientos)"></div>
+                    <mat-icon> place</mat-icon>
+                    <div class="row justify-content-center" [innerHTML]="formatZonas(entrada.asientos)"></div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
+<div class="mensaje_404" *ngIf="data.length===0">
+    Usted no tiene ninguna compra
+</div>
+
 
 <ng-template #template>
     <div class="codigo">
