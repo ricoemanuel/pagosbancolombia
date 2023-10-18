@@ -4,7 +4,7 @@
     (click)="seleccionar()" [ngClass]="{'asiento': true, 'ocupado': information.estado === 'ocupado'}"
     [style.backgroundColor]="information.estado === 'ocupado'||information.estado === 'reservando' ? '#ccc' : information.hexaColor"
     [ngStyle]="{'box-shadow': information.clienteUser === user ? '0px 1px 3px 3px green' : '2px 3px 4px 0px black'}">
-    <p>{{information.fila}}/{{information.columna}}</p>
+    <p>{{information.label}}</p>
   </div>
   <div *ngIf="information.estado === 'noSelected'" class="noSelected">
   </div>

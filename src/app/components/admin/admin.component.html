@@ -5,8 +5,37 @@
         <input matInput (keyup)="applyFilter($event)" #input>
     </mat-form-field>
 </div>
-<div class="mensaje_404">
-    Mesas totales vendidas: {{cont}}
+<div class="centrar">
+    <table class="table table-striped tabla-ventas">
+        <thead>
+            <tr>
+                <th scope="col">Zona</th>
+                <th scope="col">Cantidad</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th scope="row">Platea central</th>
+                <td>{{contPlateaC}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Platea lateral</th>
+                <td>{{contPlateaL}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Balcón central</th>
+                <td>{{contBalconC}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Balcón lateral</th>
+                <td>{{contBalconL}}</td>
+            </tr>
+            <tr>
+                <th scope="row">Asientos totales vendidos</th>
+                <td>{{cont}}</td>
+            </tr>
+        </tbody>
+    </table>
 </div>
 <div class="mat-elevation-z8 overflow-auto col-md-11 datatable">
     <table mat-table [dataSource]="dataSource" matSort>

@@ -48,6 +48,10 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
   }
   cont: number = 0
+  contBalconC: number = 0
+  contBalconL: number = 0
+  contPlateaC: number = 0
+  contPlateaL: number = 0
   async ngOnInit(): Promise<void> {
     this.spinner = true
     //  let asientos=await this.firebase.getAsientoByEstadoString("ocupado")
@@ -70,7 +74,26 @@ export class AdminComponent implements OnInit, AfterViewInit {
             }
             return false
           })
+          this.contPlateaC=0
+          this.contBalconL=0
+          this.contPlateaL=0
+          this.contBalconC=0
+          this.cont=0
           data.forEach(async (factura: any) => {
+            factura.asientos.forEach((asiento:any)=>{
+              if(asiento.split(",")[0]==="PLATEA CENTRAL"){
+                this.contPlateaC+=1
+              }
+              if(asiento.split(",")[0]==="BALCON LATERAL DERECHO" || asiento.split(",")[0]==="BALCON LATERAL IZQUIERDO"){
+                this.contBalconL+=1
+              }
+              if(asiento.split(",")[0]==="PLATEA LATERAL DERECHA" || asiento.split(",")[0]==="PLATEA LATERAL IZQUIERDA"){
+                this.contPlateaL+=1
+              }
+              if(asiento.split(",")[0]==="BALCON CENTRAL"){
+                this.contBalconC+=1
+              }
+            })
             this.cont += factura.asientos.length
           })
           // let Existe:any[]=[]
