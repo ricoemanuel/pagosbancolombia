@@ -14,7 +14,7 @@ const routes: Routes = [
   {path:'ventas',component:AdminComponent},
   {
     path: '**', // El wildcard '**' atrapa cualquier ruta que no coincida con las rutas anteriores
-    redirectTo: '/evento/0pRlSIWu9Cxyv7X8s8TQ', // Redirige a la ruta deseada
+    redirectTo: '/evento/0gcsQiNsuSbw7W12Mo97', // Redirige a la ruta deseada
   },
 ];
 

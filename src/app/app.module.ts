@@ -34,8 +34,6 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { EventoComponent } from './components/evento/evento.component';
-import { GridAsientoComponent } from './components/grid-asiento/grid-asiento.component';
-import { AsientoPalcoComponent } from './components/asiento-palco/asiento-palco.component';
 import { LoginComponent } from './components/login/login.component';
 
 import { HttpClientModule } from '@angular/common/http';
@@ -45,8 +43,6 @@ import { AdminComponent } from './components/admin/admin.component';
   declarations: [
     AppComponent,
     EventoComponent,
-    GridAsientoComponent,
-    AsientoPalcoComponent,
     LoginComponent,
     MisComprasComponent,
     AdminComponent,

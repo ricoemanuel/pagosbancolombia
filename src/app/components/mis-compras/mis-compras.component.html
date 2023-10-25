@@ -12,17 +12,10 @@
                     <mat-icon> monetization_on</mat-icon>
                     <br>
                     {{
-                    ((entrada.transaccion.data.transaction.amount_in_cents)/100).toLocaleString('en-US', {
+                    (entrada.valor).toLocaleString('en-US', {
                     style: 'currency', currency: 'USD' })}}
-                    <br><br>
-                    <mat-icon>person</mat-icon>
                     <br>
-                    {{entrada.transaccion.data.transaction.customer_data.full_name}}
-                    <br><br>
-                    <mat-icon>people</mat-icon>
-                    <div class="row justify-content-center" [innerHTML]="formatAsientos(entrada.asientos)"></div>
-                    <mat-icon> place</mat-icon>
-                    <div class="row justify-content-center" [innerHTML]="formatZonas(entrada.asientos)"></div>
+                    {{entrada.estado}}
                 </div>
             </div>
         </div>

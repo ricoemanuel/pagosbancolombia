@@ -2,7 +2,7 @@
 <div *ngIf="!spinner">
     <div *ngIf="id && evento" class="row margin">
         <div class="col-md-3">
-            <div class="img"><img width="250" src="../../../assets/rigo.jpg" alt=""></div>
+            <div class="img"><img width="250" src="../../../assets/publicidad.png" alt=""></div>
 
         </div>
         <div class="col-md-9 pt-3 margin-c">
@@ -10,70 +10,30 @@
                 <div class="card-body">
                     <h5 class="card-title">{{evento.nombre}}</h5>
                     <p class="card-text">{{evento.descripcion}}</p>
-                    <div class="row">
-                        <div class="col">
-                            <p><strong>Ubicacion: </strong>Teatro Cafam, Bogotá</p>
-                        </div>
-                        <div class="col">
-                            <p><strong>Fecha: </strong>Noviembre 7 de 2023</p>
-                        </div>
-                        <div class="col">
-                            <p><strong>Hora: </strong>10:00 a.m. a 11:10 a.m.</p>
+                    <div class="centrar">
+                        <div class="row">
+                            <div class="col">
+                                <p><strong>Ubicacion: </strong>Cielo alto, cra. 9E #16 - 104. Medellín - los balsos</p>
+                            </div>
+                            <div class="col">
+                                <p><strong>Fecha: </strong>Noviembre 17 de 2023</p>
+                            </div>
+                            <div class="col">
+                                <p><strong>Hora: </strong>4:30 p.m.</p>
+                            </div>
                         </div>
                     </div>
-                    <h6 class="card-subtitle mb-2 text-muted">Compra tu entrada:</h6>
-                    <h6 class="card-subtitle mb-2 text-muted">Por favor selecciona alguna de las localidades para
-                        seleccionar su asiento.</h6>
-                    <div class="row tabla">
-                        <table>
-                            <ng-container *ngFor="let fila of matriz; let i = index">
-                                <tr>
-                                    <ng-container *ngFor="let elemento of fila; let j = index">
-
-                                        <td class="caja" (click)="mostrarZona(elemento.nombreZona, template)"
-                                            [style.backgroundColor]="elemento ? '#3f51b5' : 'transparent'"
-                                            [style.cursor]="elemento?'pointer':''">
-                                            <div class="llenado">
-                                                <label [style.cursor]="elemento?'pointer':''" [id]="string(i,j)"
-                                                    class="nombre"></label>
-
-                                                <ng-container>
-                                                    {{mostrarNombre(elemento.nombreZona,string(i,j),elemento.precioZona)}}
-                                                </ng-container>
-
-
-                                            </div>
-                                        </td>
-                                    </ng-container>
-                                </tr>
-                            </ng-container>
-                            
-                        </table>
-                        <div class="tarima">Tarima</div>
+                    <div class="centrar">
+                        <button (click)="comprar()" class="btn btn-success lg">Compra aquí</button>
                     </div>
-                    <br>
-                    
+
                 </div>
 
             </div>
 
         </div>
-        
+
     </div>
 
-    <ng-template #template>
-        <div (click)="cerrarPopup({})" class="close"><mat-icon>close</mat-icon></div>
-        <h3 class="title">{{selectedZone}}</h3>
-        <app-grid-asientos (cerrarPopUpA)="cerrarPopup($event)" [labels]="evento.labels" 
-            [zonaSeleccionada]="selectedZone"></app-grid-asientos>
-        <div class="centrar">
-            <button [disabled]="!(listaAsientos.length>0)" class="btn btn-success" (click)="pagar(wompi)">Pagar</button>
-        </div>
 
-    </ng-template>
-
-    <ng-template #wompi>
-        <div *ngIf="permitirCerrar" (click)="cerrarPopup({})" class="close"><mat-icon>close</mat-icon></div>
-        <iframe class="wompi" [src]="link"></iframe>
-    </ng-template>
 </div>

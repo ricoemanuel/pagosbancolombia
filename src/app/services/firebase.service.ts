@@ -41,7 +41,10 @@ export class FirebaseService {
   getAuthState() {
     return authState(this.auth)
   }
-
+  getUsers(){
+    const userRef = collection(this.firestore, "usuariosBancolombia");
+    return getDocs(userRef);
+  }
   async getevento(id: string) {
     const eventoRef = doc(this.firestore, "eventos", id);
     const eventoSnapshot = await getDoc(eventoRef);
@@ -71,6 +74,30 @@ export class FirebaseService {
         unsubscribe();
       };
     });
+  }
+  async getFactura(id: string) {
+    const entradaRef = collection(this.firestore, 'facturas');
+    const q = query(entradaRef, where('link', '==', id));
+  
+    try {
+      const querySnapshot = await getDocs(q);
+      return querySnapshot;
+    } catch (error) {
+      console.error('Error al obtener los asientos:', error);
+      throw error;
+    }
+  }
+  async getFacturaByuser(id: string) {
+    const entradaRef = collection(this.firestore, 'facturas');
+    const q = query(entradaRef, where('uid', '==', id));
+  
+    try {
+      const querySnapshot = await getDocs(q);
+      return querySnapshot;
+    } catch (error) {
+      console.error('Error al obtener los asientos:', error);
+      throw error;
+    }
   }
   getAsientoRealtimeByEvento(evento: string): Observable<DocumentData[]> {
     const entradaRef = collection(this.firestore, 'asientos');
@@ -152,7 +179,10 @@ export class FirebaseService {
     }
   }
 
-
+  actualizarFactura(obj: any,id:string) {
+    const entradaRef = doc(this.firestore, "facturas", id)
+    return setDoc(entradaRef, obj)
+  }
   actualizarAsiento(asiento: any) {
     const entradaRef = doc(this.firestore, "asientos", `f${asiento.fila}c${asiento.columna}-${asiento.evento}`)
     return setDoc(entradaRef, asiento)
@@ -162,7 +192,7 @@ export class FirebaseService {
     return getDoc(entradaRef)
   }
   async getUser(uid: string) {
-    const usuarioRef = doc(this.firestore, "usuarios", uid);
+    const usuarioRef = doc(this.firestore, "usuariosBancolombia", uid);
     const usuarioSnapshot = await getDoc(usuarioRef);
 
     if (usuarioSnapshot.exists()) {
@@ -172,8 +202,8 @@ export class FirebaseService {
       return null;
     }
   }
-  async setUser(obj: any, uid: string) {
-    const usuarioRef = doc(this.firestore, "usuarios", uid)
+  async setUser(obj: any) {
+    const usuarioRef = doc(this.firestore, "usuariosBancolombia", obj.DOCUMENTO.toString())
     return setDoc(usuarioRef, obj)
   }
   getAsientosByEventoAndZona(eventoId: string, zona: string) {
@@ -216,31 +246,18 @@ export class FirebaseService {
     return transactions$
   }
 
-  async registrarFactura(transaccion: any, uid: string, evento: string, asientos: string[], eventoData:any) {
+  async registrarFactura(uid: string,link:string,valor:number) {
     let obj: any = {
-      transaccion,
       uid,
-      evento,
-      asientos,
-      eventoData
+      link,
+      valor,
+      estado:"comprando",
+      eventoData:{'nombre':'Fiesta de fin de año Noviembre 17 de 2023 4:30 p.m.'},
+      evento:"0gcsQiNsuSbw7W12Mo97"
     }
     const facturaRef = collection(this.firestore, "facturas")
-    let doc: DocumentReference = await addDoc(facturaRef, obj)
-    let user: any = await this.getUser(uid)
-      // fetch(environment.EmailSender.link, {
-      //   method: 'POST',
-      //   headers: {
-      //     'Content-Type': 'application/json',
-      //     'x-api-key':environment.EmailSender.head
-      //   },
-      //   body: JSON.stringify({
-      //     correo: user.correo,
-      //     nombre: user.nombre,
-      //     factura: doc.id,
-      //   }),
-      // }).catch(error=>{
-      //   console.log(error)
-      // })
+    return await addDoc(facturaRef, obj)
+      
   }
 
   async valirdarAsientos(id: string, user: string) {
@@ -256,7 +273,7 @@ export class FirebaseService {
   }
   getCurrentFacturas(uid: string): Observable<DocumentData[]> {
     const entradaRef = collection(this.firestore, 'facturas');
-    const q = query(entradaRef, where('uid', '==', uid),where('evento','==','0pRlSIWu9Cxyv7X8s8TQ'));
+    const q = query(entradaRef, where('uid', '==', uid),where('evento','==','0gcsQiNsuSbw7W12Mo97'));
   
     return new Observable<DocumentData[]>(observer => {
       const unsubscribe = onSnapshot(q, snapshot => {

@@ -10,46 +10,46 @@ import { WompiService } from './services/wompi.service';
 })
 export class AppComponent implements OnInit {
   cargando: boolean = true
-  login:boolean=false
-  logged:boolean=false
-  esAdmin:boolean=false
+  login: boolean = false
+  logged: boolean = false
+  esAdmin: boolean = false
   constructor(private router: Router, private firebase: FirebaseService, private wompi: WompiService, private route: ActivatedRoute) { }
   ngOnInit(): void {
-    
+
     this.firebase.getAuthState().subscribe(async res => {
       if (res) {
-        this.logged=true
-        res.uid==="NNcOSeH29sRCTw7LDqOlthXdg8E3"?this.esAdmin=true:this.esAdmin=false
+        this.logged = true
+        res.uid === "NNcOSeH29sRCTw7LDqOlthXdg8E3" ? this.esAdmin = true : this.esAdmin = false
       }
       this.cargando = false
     })
     this.router.events.subscribe((event: any) => {
-      if(event.url){
-        if(event.url==='/login'){
-          this.login=true
+      if (event.url) {
+        if (event.url === '/login') {
+          this.login = true
         }
-        else{
-          this.login=false
+        else {
+          this.login = false
         }
       }
 
 
-  });
-
+    });
   }
   logout() {
     this.firebase.cerrarSesion()
-    this.logged=false
+    this.logged = false
   }
-  redirect(){
+  redirect() {
     this.router.navigate(['login'])
   }
-  redirectW(){
+  redirectW() {
     const urlWhatsApp = 'https://api.whatsapp.com/send?phone=573054029445';
     window.open(urlWhatsApp, '_blank'); // Abre en una nueva ventana o pestaña
     // O puedes usar router.navigate para redirigir en la misma ventana
     // this.router.navigate(['/']); // Por ejemplo, redirigir a la página de inicio de tu aplicación Angular
-  
+
   }
+  
 
 }

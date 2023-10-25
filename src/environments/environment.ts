@@ -10,7 +10,7 @@ export const environment = {
       databaseURL: 'https://myticketeventos-default-rtdb.firebaseio.com',
   },
   wompi:{
-    head:'prv_prod_hYyfJ56bMTY3p34c5tTf4s7UPQTWXMfZ',
+    head:'prv_prod_7cFwRtJgBr0CP7sQuQUoYdgT6sj6KAtC',
     link:"https://production.wompi.co/v1/"
   },
   EmailSender:{

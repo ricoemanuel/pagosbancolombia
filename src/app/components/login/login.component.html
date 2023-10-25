@@ -3,121 +3,15 @@
   <div class="close" (click)="redirect()"><mat-icon>close</mat-icon></div>
   <div class="container">
     <div class="form">
-      <div class="thumbnail">
-        <img src="../../../assets/logo.png" alt="Thumbnail">
-      </div>
-      <form [formGroup]="formularioSignUp" class="register-form" *ngIf="iniciarSesion">
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Nombre completo</mat-label>
-              <input matInput formControlName="nombre">
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col tipo">
-            <mat-form-field>
-              <mat-label>Tipo de documento</mat-label>
-              <mat-select formControlName="tipoCedula">
-                <mat-option value="cedula">Cédula ciudadanía</mat-option>
-                <mat-option value="extranjería">Cédula extranjería</mat-option>
-                <mat-option value="tarjeta">Tarjeta de identidad</mat-option>
-                <mat-option value="pasaporte">Pasaporte</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Número</mat-label>
-              <input type="number" matInput formControlName="numero">
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Número de teléfono/celular</mat-label>
-              <input type="number" matInput formControlName="telefono">
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Tipo de registro</mat-label>
-              <mat-select formControlName="tipoRegistro">
-                <mat-option value="estudiante">Estudiante</mat-option>
-                <mat-option value="docente">Docente</mat-option>
-                <mat-option value="asistente">asistente</mat-option>
-                <mat-option value="empresario">Empresario</mat-option>
-                <mat-option value="egresado">Egresado</mat-option>
-                <mat-option value="comunidadunicafam">Comunidad unicafam</mat-option>
-              </mat-select>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row" *ngIf="formularioSignUp.value.tipoRegistro==='empresario'">
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Nombre de la institución o entidad</mat-label>
-              <input type="text" matInput formControlName="entidad">
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row" *ngIf="formularioSignUp.value.tipoRegistro==='empresario'">
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Nit</mat-label>
-              <input type="text" matInput formControlName="nit">
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Correo</mat-label>
-              <input type="email" matInput formControlName="correo">
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Contraseña</mat-label>
-              <input type="password" matInput formControlName="contrasena">
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <mat-label>Confirmar contraseña</mat-label>
-              <input type="password" matInput formControlName="confirmar">
-            </mat-form-field>
-          </div>
-        </div>
-        <button *ngIf="!disabled" class="submit" type="submit" (click)="registro()">Registrarse</button>
-        <button *ngIf="disabled" class="disabled" type="submit">Registrarse</button>
-        <p class="message">¿Ya tienes cuenta? <a (click)="switch('registrarse')" style="cursor: pointer;">Inicia
-            sesión</a></p>
-      </form>
-      <form [formGroup]="formularioLogin" class="login-form" *ngIf="registrarse">
+      
+      <form [formGroup]="formularioLogin" class="login-form" >
         <div class="row">
           <mat-form-field>
-            <mat-label>Correo</mat-label>
-            <input type="email" matInput formControlName="correo">
+            <mat-label>Cédula</mat-label>
+            <input type="text" matInput formControlName="cedula">
           </mat-form-field>
         </div>
-        <div class="row">
-          <mat-form-field>
-            <mat-label>Contraseña</mat-label>
-            <input type="password" matInput formControlName="contrasena">
-          </mat-form-field>
-        </div>
-        <button class="submit" type="submit" (click)="iniciar()">Iniciar Sesión</button>
-        <p class="message">¿No te has registrado? <a (click)="switch('iniciarSesion')" style="cursor: pointer;">Create
-            una cuenta</a></p>
+        <button class="submit" type="submit" (click)="iniciar()">continuar</button>
       </form>
     </div>
   </div>
