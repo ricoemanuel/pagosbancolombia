@@ -1,14 +1,14 @@
 {
   "targets": {
-    "myticketeventos": {
+    "celebracion2023-myteventos": {
       "hosting": {
-        "myticketeventos": [
-          "myticketeventos"
+        "celebracion2023-myteventos": [
+          "celebracion2023-myteventos"
         ]
       }
     }
   },
   "projects": {
-    "default": "myticketeventos"
+    "default": "celebracion2023-myteventos"
   }
 }
