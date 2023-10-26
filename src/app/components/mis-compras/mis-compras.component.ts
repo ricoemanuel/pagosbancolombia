@@ -20,6 +20,7 @@ export class MisComprasComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
   @ViewChild('content', { static: false }) content!: ElementRef;
   idTranssaccion: any;
+  suscriptionTransaccion: any;
   constructor(private firebase: FirebaseService,
     private modalService: BsModalService,
     private router: Router,
@@ -54,9 +55,9 @@ export class MisComprasComponent implements OnInit {
 
             })
             if (!factura.respuesta) {
-              if (estado !== "APPROVED") {
-                factura.respuesta=datos.data
-                factura.estado="comprado"
+              if (estado === "APPROVED") {
+                factura.respuesta = datos.data
+                factura.estado = "comprado"
                 await this.firebase.actualizarFactura(factura, id)
                 Swal.fire({
                   position: 'top-end',
@@ -66,8 +67,8 @@ export class MisComprasComponent implements OnInit {
                   timer: 3000
                 })
               } else {
-                factura.respuesta=datos.data
-                factura.estado="cancelado"
+                factura.respuesta = datos.data
+                factura.estado = "cancelado"
                 await this.firebase.actualizarFactura(factura, id)
                 Swal.fire({
                   position: 'top-end',
@@ -157,5 +158,74 @@ export class MisComprasComponent implements OnInit {
       asistentes += `<div class="col-md-4">${clave}<br>Niños: ${elemento[clave].ninos}<br>Adultos: ${elemento[clave].adultos}</div>`
     })
     return asistentes
+  }
+  async verificar(link: string) {
+    let resfactura = await this.firebase.getFactura(link)
+
+    let factura: any
+    let id: any
+    resfactura.forEach((reserva: any) => {
+      id = reserva.id
+      factura = reserva.data()
+
+    })
+    Swal.fire({
+      position: 'top-end',
+      icon: 'info',
+      title: 'Validando compra, por favor espere.',
+      showConfirmButton: false,
+      
+    })
+    
+    this.suscriptionTransaccion = this.firebase.transactions().subscribe(async res => {
+      let iterable = Object.entries(res);
+      let array: any[] = [];
+
+      iterable.forEach(([key, transaccion]: any) => {
+        transaccion.key = key;
+        array.push(transaccion);
+      });
+
+
+
+      let respuesta = array.filter(pago => {
+        return pago.data.transaction.payment_link_id === link
+      })
+      if (respuesta.length > 0) {
+        let datos:any=respuesta[0].data
+        if(datos.transaction.status === 'APPROVED'){
+          factura.respuesta = datos
+          factura.estado = "comprado"
+          await this.firebase.actualizarFactura(factura, id)
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Has comprado tú entrada!',
+            showConfirmButton: false,
+            timer: 3000
+          })
+        }else{
+          factura.respuesta = datos
+          factura.estado = "cancelado"
+          await this.firebase.actualizarFactura(factura, id)
+          Swal.fire({
+            position: 'top-end',
+            icon: 'error',
+            title: 'La transacción no ha sido confirmada, comunícate con tu banco.',
+            showConfirmButton: false,
+            timer: 2000
+          })
+        }
+        
+      }else{
+        Swal.fire({
+          position: 'top-end',
+          icon: 'error',
+          title: 'La transacción no ha sido confirmada, comunícate con tu banco.',
+          showConfirmButton: false,
+          timer: 2000
+        })
+      }
+    })
   }
 }

@@ -33,7 +33,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
     this.spinner = false
   }
   redirect() {
-    this.router.navigate(['evento', '0pRlSIWu9Cxyv7X8s8TQ'])
+    this.router.navigate(['evento', '0gcsQiNsuSbw7W12Mo97'])
   }
   async iniciar() {
     this.spinner = true
@@ -86,8 +86,18 @@ export class LoginComponent implements AfterViewInit, OnInit {
     let user: any = await this.loginservice.getUser(this.formularioLogin.value.cedula!)
     if (!user) {
       pass = false
+      Swal.fire({
+        position: 'top-end',
+        icon: 'error',
+        title: 'Su cédula no está en nuestros registros.',
+        showConfirmButton: false,
+        timer: 2000
+      }).then(() => {
+        window.location.reload()
+      })
     }
-    if (pass === true) {
+    
+    if (pass) {
       this.loginservice.singup({ email, password }).then(async res => {
         user.uid = res.user.uid
         await this.loginservice.setUser(user)

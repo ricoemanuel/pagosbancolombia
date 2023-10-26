@@ -248,6 +248,7 @@ export class FirebaseService {
 
   async registrarFactura(uid: string,link:string,valor:number) {
     let obj: any = {
+      fecha:new Date(),
       uid,
       link,
       valor,
@@ -273,7 +274,7 @@ export class FirebaseService {
   }
   getCurrentFacturas(uid: string): Observable<DocumentData[]> {
     const entradaRef = collection(this.firestore, 'facturas');
-    const q = query(entradaRef, where('uid', '==', uid),where('evento','==','0gcsQiNsuSbw7W12Mo97'));
+    const q = query(entradaRef, where('uid', '==', uid),where('evento','==','0gcsQiNsuSbw7W12Mo97'),where('estado','!=','cancelado'));
   
     return new Observable<DocumentData[]>(observer => {
       const unsubscribe = onSnapshot(q, snapshot => {
