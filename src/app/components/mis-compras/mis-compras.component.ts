@@ -91,7 +91,11 @@ export class MisComprasComponent implements OnInit {
     this.firebase.getAuthState().subscribe(user => {
       this.firebase.getCurrentFacturas(user!.uid).subscribe(res => {
         this.data = res
-        console.log(this.data)
+        this.data.forEach((compra:any)=>{
+          if(compra.estado==="comprando"){
+            this.verificar(compra.link)
+          }
+        })
       })
     })
   }
@@ -159,6 +163,9 @@ export class MisComprasComponent implements OnInit {
     })
     return asistentes
   }
+  comprando(){
+    
+  }
   async verificar(link: string) {
     let resfactura = await this.firebase.getFactura(link)
 
@@ -191,6 +198,7 @@ export class MisComprasComponent implements OnInit {
       let respuesta = array.filter(pago => {
         return pago.data.transaction.payment_link_id === link
       })
+
       if (respuesta.length > 0) {
         let datos:any=respuesta[0].data
         if(datos.transaction.status === 'APPROVED'){
@@ -218,6 +226,8 @@ export class MisComprasComponent implements OnInit {
         }
         
       }else{
+          factura.estado = "cancelado"
+          await this.firebase.actualizarFactura(factura, id)
         Swal.fire({
           position: 'top-end',
           icon: 'error',

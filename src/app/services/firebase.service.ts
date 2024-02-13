@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, signOut, authState, createUserWithEmailAndPassword } from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, signOut, authState, createUserWithEmailAndPassword,getAuth} from '@angular/fire/auth';
 import { DocumentData, DocumentReference, Firestore, addDoc, collection, collectionData, deleteDoc, doc, getDoc, getDocs, onSnapshot, query, setDoc, where } from '@angular/fire/firestore';
 import { EMPTY, Observable, catchError, distinctUntilChanged, from, interval, map, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -25,7 +25,6 @@ export class FirebaseService {
       distinctUntilChanged() // Emite solo si los datos son diferentes a los previos
     );
   }
-
   singup(objeto: any) {
     let email = objeto.email
     let password = objeto.password
@@ -90,6 +89,18 @@ export class FirebaseService {
   async getFacturaByuser(id: string) {
     const entradaRef = collection(this.firestore, 'facturas');
     const q = query(entradaRef, where('uid', '==', id));
+  
+    try {
+      const querySnapshot = await getDocs(q);
+      return querySnapshot;
+    } catch (error) {
+      console.error('Error al obtener los asientos:', error);
+      throw error;
+    }
+  }
+  async geUserByUid(uid: string) {
+    const entradaRef = collection(this.firestore, 'usuariosBancolombia');
+    const q = query(entradaRef, where('uid', '==', uid));
   
     try {
       const querySnapshot = await getDocs(q);

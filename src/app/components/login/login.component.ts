@@ -40,20 +40,25 @@ export class LoginComponent implements AfterViewInit, OnInit {
     let email = `${this.formularioLogin.value.cedula}@gmail.com`
     let password = this.formularioLogin.value.cedula
     this.loginservice.login({ email, password }).then(async (res: any) => {
+      let user=await this.loginservice.getUser(password!)
       let compras = await this.loginservice.getFacturaByuser(res.user.uid)
-      let pass = true
-      compras.forEach((doc: any) => {
-        let compra = doc.data()
-        if (compra.estado !== 'cancelado') {
-          pass = false
+      if(user){
+        let pass = true
+        compras.forEach((doc: any) => {
+          let compra = doc.data()
+          if (compra.estado !== 'cancelado') {
+            pass = false
+          }
+        })
+        console.log(pass)
+        if (!pass) {
+          this.spinner = false
+          this.router.navigate(["mis-compras"])
+        } else {
+          this.redireccionarPago(res)
         }
-      })
-      console.log(pass)
-      if (!pass) {
-        this.spinner = false
-        this.router.navigate(["mis-compras"])
-      } else {
-        this.redireccionarPago(res)
+      }else{
+        this.registro(email, password!)
       }
 
 
@@ -76,7 +81,6 @@ export class LoginComponent implements AfterViewInit, OnInit {
         if (response) {
           window.location.href = `https://checkout.wompi.co/l/${res.data.id}`
         }
-
       })
     }
   }

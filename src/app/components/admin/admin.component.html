@@ -6,39 +6,10 @@
     </mat-form-field>
 </div>
 <div class="centrar">
-    <table class="table table-striped tabla-ventas">
-        <thead>
-            <tr>
-                <th scope="col">Zona</th>
-                <th scope="col">Cantidad</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <th scope="row">Platea central</th>
-                <td>{{contPlateaC}}</td>
-            </tr>
-            <tr>
-                <th scope="row">Platea lateral</th>
-                <td>{{contPlateaL}}</td>
-            </tr>
-            <tr>
-                <th scope="row">Balcón central</th>
-                <td>{{contBalconC}}</td>
-            </tr>
-            <tr>
-                <th scope="row">Balcón lateral</th>
-                <td>{{contBalconL}}</td>
-            </tr>
-            <tr>
-                <th scope="row">Asientos totales vendidos</th>
-                <td>{{cont}}</td>
-            </tr>
-        </tbody>
-    </table>
+    <button class="btn btn-success"  (click)="exporter.exportTable('xlsx')">Exportar</button>
 </div>
 <div class="mat-elevation-z8 overflow-auto col-md-11 datatable">
-    <table mat-table [dataSource]="dataSource" matSort>
+    <table matTableExporter #exporter="matTableExporter" mat-table [dataSource]="dataSource" matSort>
 
         <ng-container matColumnDef="QR">
             <mat-header-cell *matHeaderCellDef> Código qr </mat-header-cell>
@@ -62,34 +33,47 @@
         <ng-container matColumnDef="Valor">
             <mat-header-cell *matHeaderCellDef> Valor </mat-header-cell>
             <mat-cell *matCellDef="let elemento"> {{
-                ((elemento.transaccion.data.transaction.amount_in_cents)/100).toLocaleString('en-US', {
-                style: 'currency', currency: 'USD' })}}
+                ((elemento.valor))}}
             </mat-cell>
         </ng-container>
-        <ng-container matColumnDef="Nombre">
-            <mat-header-cell *matHeaderCellDef> Nombre </mat-header-cell>
-            <mat-cell *matCellDef="let elemento"> {{
-                elemento.transaccion.data.transaction.customer_data.full_name}}
-            </mat-cell>
-        </ng-container>
-        <ng-container matColumnDef="personas">
-            <mat-header-cell *matHeaderCellDef>Asientos</mat-header-cell>
+        <ng-container matColumnDef="estado">
+            <mat-header-cell *matHeaderCellDef>Estado</mat-header-cell>
             <mat-cell *matCellDef="let elemento">
-                {{formatAsientos(elemento.asientos)}}
-                <br>
-                {{formatZonas(elemento.asientos)}}
+                {{elemento.estado}}
             </mat-cell>
         </ng-container>
         <ng-container matColumnDef="transaccion">
             <mat-header-cell *matHeaderCellDef>Número de transacción</mat-header-cell>
             <mat-cell *matCellDef="let elemento">
-                {{elemento.transaccion.data.transaction.id}}
+                <p *ngIf="elemento.respuesta">
+                    {{elemento.respuesta.id?elemento.respuesta.id:elemento.respuesta.transaction.id}}
+                </p>
             </mat-cell>
         </ng-container>
         <ng-container matColumnDef="fecha">
             <mat-header-cell *matHeaderCellDef>Fecha de transacción</mat-header-cell>
             <mat-cell *matCellDef="let elemento">
-                {{formatfecha(elemento.transaccion.data.transaction.finalized_at)}}
+                <p *ngIf="elemento.respuesta">
+                    {{formatfecha(elemento.respuesta.finalized_at?elemento.respuesta.finalized_at:elemento.respuesta.transaction.finalized_at)}}
+                </p>
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="cedula">
+            <mat-header-cell *matHeaderCellDef>Cédula</mat-header-cell>
+            <mat-cell *matCellDef="let elemento">
+            {{elemento.cedula}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="uid">
+            <mat-header-cell *matHeaderCellDef>uid</mat-header-cell>
+            <mat-cell *matCellDef="let elemento">
+            {{elemento.uid}}
+            </mat-cell>
+        </ng-container>
+        <ng-container matColumnDef="acciones">
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let elemento">
+                <div class="col" *ngIf="elemento.estado==='comprando'"><mat-icon style="cursor: pointer;" (click)="verificar(elemento.link)">cached</mat-icon></div>
             </mat-cell>
         </ng-container>
 
@@ -98,7 +82,7 @@
 
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5,10,25, 100]" aria-label="Select page of users"></mat-paginator>
+    <mat-paginator [pageSizeOptions]="[5,10,25, 1000]" aria-label="Select page of users"></mat-paginator>
 </div>
 <ng-template #template>
     <div class="codigo">

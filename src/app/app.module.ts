@@ -10,7 +10,7 @@ import { provideAuth,getAuth } from '@angular/fire/auth';
 import { provideFirestore,getFirestore } from '@angular/fire/firestore';
 import { provideDatabase,getDatabase } from '@angular/fire/database';
 import { provideFunctions,getFunctions } from '@angular/fire/functions';
-
+import { MatTableExporterModule } from 'mat-table-exporter';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatTableModule } from '@angular/material/table';
@@ -67,6 +67,7 @@ import { AdminComponent } from './components/admin/admin.component';
     MatAutocompleteModule,
     HttpClientModule,
     MatTooltipModule,
+    MatTableExporterModule,
     provideFirebaseApp(() => initializeApp(environment.firebase)),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),

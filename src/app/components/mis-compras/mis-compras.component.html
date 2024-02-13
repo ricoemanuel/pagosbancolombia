@@ -10,7 +10,7 @@
                 <div #content [id]="entrada.id" class="entrada">
                     <p [routerLink]="'/evento/'+entrada.evento" style="cursor: pointer; font-weight: bold;">
                         {{entrada.eventoData?entrada.eventoData.nombre:'Ir al evento'}}</p>
-                    <div class="codigo">
+                    <div class="codigo" *ngIf="entrada.estado==='comprado'">
                         <img [src]="generateQRCodeBase64(entrada.id)" alt="">
                     </div>
                     <mat-icon> monetization_on</mat-icon>

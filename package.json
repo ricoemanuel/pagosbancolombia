@@ -26,6 +26,7 @@
     "https-proxy-agent": "^7.0.2",
     "jspdf": "^2.5.1",
     "jspdf-autotable": "^3.5.31",
+    "mat-table-exporter": "^15.0.0",
     "ngx-bootstrap": "^11.0.2",
     "qrcode": "^1.5.3",
     "qrcode-generator": "^1.4.4",

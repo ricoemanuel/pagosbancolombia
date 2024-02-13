@@ -5,6 +5,7 @@
         <mat-icon [matMenuTriggerFor]="menu" style="cursor: pointer;" class="logout">person_pin</mat-icon>
         <mat-menu #menu="matMenu">
           <button style="cursor: pointer;" routerLink="/mis-compras" mat-menu-item>Mis boletas</button>
+          <!-- <button style="cursor: pointer;" routerLink="/ventas" mat-menu-item>Ventas</button> -->
           <button style="cursor: pointer;" [routerLink]="['/login']" [queryParams]="{ generarLink: true }" mat-menu-item>Comprar con otra cédula</button>
         </mat-menu>
       </mat-toolbar>
