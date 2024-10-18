@@ -33,7 +33,7 @@ export class LoginComponent implements AfterViewInit, OnInit {
     this.spinner = false
   }
   redirect() {
-    this.router.navigate(['evento', '0gcsQiNsuSbw7W12Mo97'])
+    this.router.navigate(['evento', 'nov-22-2024'])
   }
   async iniciar() {
     this.spinner = true

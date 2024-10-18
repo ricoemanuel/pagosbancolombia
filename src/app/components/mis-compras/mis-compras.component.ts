@@ -91,11 +91,11 @@ export class MisComprasComponent implements OnInit {
     this.firebase.getAuthState().subscribe(user => {
       this.firebase.getCurrentFacturas(user!.uid).subscribe(res => {
         this.data = res
-        this.data.forEach((compra:any)=>{
-          if(compra.estado==="comprando"){
-            this.verificar(compra.link)
-          }
-        })
+        // this.data.forEach((compra:any)=>{
+        //   if(compra.estado==="comprando"){
+        //     this.verificar(compra.link)
+        //   }
+        // })
       })
     })
   }

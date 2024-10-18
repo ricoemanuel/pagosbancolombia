@@ -1,14 +1,14 @@
 {
   "targets": {
-    "celebracion2023-myteventos": {
+    "fiestabancolombia": {
       "hosting": {
-        "celebracion2023-myteventos": [
-          "celebracion2023-myteventos"
+        "fiestabancolombia": [
+          "fiestabancolombia"
         ]
       }
     }
   },
   "projects": {
-    "default": "celebracion2023-myteventos"
+    "default": "fiestabancolombia"
   }
 }

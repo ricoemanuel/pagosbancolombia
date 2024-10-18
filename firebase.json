@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "target": "celebracion2023-myteventos",
+      "target": "fiestabancolombia",
       "source": ".",
       "frameworksBackend": {}
     }

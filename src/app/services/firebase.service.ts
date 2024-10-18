@@ -41,7 +41,7 @@ export class FirebaseService {
     return authState(this.auth)
   }
   getUsers(){
-    const userRef = collection(this.firestore, "usuariosBancolombia");
+    const userRef = collection(this.firestore, "usuariosBancolombia3");
     return getDocs(userRef);
   }
   async getevento(id: string) {
@@ -99,7 +99,7 @@ export class FirebaseService {
     }
   }
   async geUserByUid(uid: string) {
-    const entradaRef = collection(this.firestore, 'usuariosBancolombia');
+    const entradaRef = collection(this.firestore, 'usuariosBancolombia3');
     const q = query(entradaRef, where('uid', '==', uid));
   
     try {
@@ -203,7 +203,7 @@ export class FirebaseService {
     return getDoc(entradaRef)
   }
   async getUser(uid: string) {
-    const usuarioRef = doc(this.firestore, "usuariosBancolombia", uid);
+    const usuarioRef = doc(this.firestore, "usuariosBancolombia3", uid);
     const usuarioSnapshot = await getDoc(usuarioRef);
 
     if (usuarioSnapshot.exists()) {
@@ -214,7 +214,7 @@ export class FirebaseService {
     }
   }
   async setUser(obj: any) {
-    const usuarioRef = doc(this.firestore, "usuariosBancolombia", obj.DOCUMENTO.toString())
+    const usuarioRef = doc(this.firestore, "usuariosBancolombia3", obj.DOCUMENTO.toString())
     return setDoc(usuarioRef, obj)
   }
   getAsientosByEventoAndZona(eventoId: string, zona: string) {
@@ -264,8 +264,8 @@ export class FirebaseService {
       link,
       valor,
       estado:"comprando",
-      eventoData:{'nombre':'Fiesta de fin de año Noviembre 17 de 2023 4:30 p.m.'},
-      evento:"0gcsQiNsuSbw7W12Mo97"
+      eventoData:{'nombre':'Fiesta de fin de año Noviembre 22 de 2024 5:00 p.m.'},
+      evento:"nov-22-2024"
     }
     const facturaRef = collection(this.firestore, "facturas")
     return await addDoc(facturaRef, obj)
@@ -285,7 +285,7 @@ export class FirebaseService {
   }
   getCurrentFacturas(uid: string): Observable<DocumentData[]> {
     const entradaRef = collection(this.firestore, 'facturas');
-    const q = query(entradaRef, where('uid', '==', uid),where('evento','==','0gcsQiNsuSbw7W12Mo97'),where('estado','!=','cancelado'));
+    const q = query(entradaRef, where('uid', '==', uid),where('evento','==','nov-22-2024'),where('estado','!=','cancelado'));
   
     return new Observable<DocumentData[]>(observer => {
       const unsubscribe = onSnapshot(q, snapshot => {

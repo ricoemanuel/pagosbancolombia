@@ -19,7 +19,7 @@ export class WompiService {
       "amount_in_cents": valor*100,
       "collect_shipping": false,
       "collect_customer_legal_id": true,
-      "redirect_url":"https://celebracion2023-myteventos.web.app/mis-compras"
+      "redirect_url":"https://fiestabancolombia.web.app/mis-compras"
     };
     return this.http.post(`${environment.wompi.link}payment_links`, data, { headers: this.headers })
     
