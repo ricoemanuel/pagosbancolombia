@@ -67,12 +67,12 @@ export class AdminComponent implements OnInit, AfterViewInit {
 
       this.firebase.getFacturas().subscribe(res => {
 
-        let comprando= res.filter((factura: any) => {
-          if (factura.eventoData) {
-            return factura.evento === "nov-22-2024" && (factura.estado === "comprando")
-          }
-          return false
-        })
+        // let comprando= res.filter((factura: any) => {
+        //   if (factura.eventoData) {
+        //     return factura.evento === "nov-22-2024" && (factura.estado === "comprando")
+        //   }
+        //   return false
+        // })
         // comprando.map(async (venta:any)=>{
         //   const ahora = new Date();
         //   venta.fecha=new Date(venta.fecha.seconds*1000)
@@ -110,7 +110,6 @@ export class AdminComponent implements OnInit, AfterViewInit {
           }
 
         })
-        console.log(dataNoC)
         // console.log(data)
         // let Existe:any[]=[]
         // asientosFactura.forEach((mesa:string)=>{
