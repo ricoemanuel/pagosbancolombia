@@ -3,7 +3,7 @@
         <div *ngFor="let entrada of data" class="col-md-4">
             <div class="border">
                 <div class="row">
-                    <div class="col" *ngIf="entrada.estado==='comprando'"><mat-icon style="cursor: pointer;" (click)="verificar(entrada.link)">cached</mat-icon></div>
+                    <div class="col" *ngIf="entrada.estado==='comprando'"><mat-icon style="cursor: pointer;" (click)="verificar(entrada.link)">delete</mat-icon></div>
                     <div class="col"><mat-icon style="cursor: pointer;" (click)="generarPDF(entrada.id)">print</mat-icon></div>
                 </div>
                 

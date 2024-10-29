@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { Auth, signInWithEmailAndPassword, signOut, authState, createUserWithEmailAndPassword,getAuth} from '@angular/fire/auth';
+import { Auth, signInWithEmailAndPassword, signOut, authState, createUserWithEmailAndPassword,getAuth,getAdditionalUserInfo} from '@angular/fire/auth';
 import { DocumentData, DocumentReference, Firestore, addDoc, collection, collectionData, deleteDoc, doc, getDoc, getDocs, onSnapshot, query, setDoc, where } from '@angular/fire/firestore';
 import { EMPTY, Observable, catchError, distinctUntilChanged, from, interval, map, switchMap } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
@@ -44,6 +44,14 @@ export class FirebaseService {
     const userRef = collection(this.firestore, "usuariosBancolombia3");
     return getDocs(userRef);
   }
+  getUsers1(){
+    const userRef = collection(this.firestore, "usuariosBancolombia");
+    return getDocs(userRef);
+  }
+  getUsers2(){
+    const userRef = collection(this.firestore, "usuariosBancolombia2");
+    return getDocs(userRef);
+  }
   async getevento(id: string) {
     const eventoRef = doc(this.firestore, "eventos", id);
     const eventoSnapshot = await getDoc(eventoRef);
@@ -77,6 +85,18 @@ export class FirebaseService {
   async getFactura(id: string) {
     const entradaRef = collection(this.firestore, 'facturas');
     const q = query(entradaRef, where('link', '==', id));
+  
+    try {
+      const querySnapshot = await getDocs(q);
+      return querySnapshot;
+    } catch (error) {
+      console.error('Error al obtener los asientos:', error);
+      throw error;
+    }
+  }
+  async getUsersNoUid() {
+    const entradaRef = collection(this.firestore, 'usuariosBancolombia3');
+    const q = query(entradaRef);
   
     try {
       const querySnapshot = await getDocs(q);

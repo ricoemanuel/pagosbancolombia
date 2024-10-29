@@ -14,8 +14,22 @@ export class AppComponent implements OnInit {
   logged: boolean = false
   esAdmin: boolean = false
   constructor(private router: Router, private firebase: FirebaseService, private wompi: WompiService, private route: ActivatedRoute) { }
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    // let users = await this.firebase.getUsers()
+    // users.forEach(async (user: any) => {
+    //   let data = user.data()
+    //   if (!data.uid) {
+    //     try {
+    //       let userauth = await this.firebase.login({ email: `${data.DOCUMENTO}@gmail.com`, password: data.DOCUMENTO })
+    //       data.uid = userauth.user.uid
+    //       console.log(data)
+    //     } catch (e) {
+    //       console.log(e)
+    //     }
 
+    //   }
+    // })
+    this.setCedulas()
     this.firebase.getAuthState().subscribe(async res => {
       if (res) {
         this.logged = true
@@ -44,12 +58,28 @@ export class AppComponent implements OnInit {
     this.router.navigate(['login'])
   }
   redirectW() {
-    const urlWhatsApp = 'https://api.whatsapp.com/send?phone=573054029445';
+    const urlWhatsApp = 'https://api.whatsapp.com/send?phone=573219194560';
     window.open(urlWhatsApp, '_blank'); // Abre en una nueva ventana o pestaña
     // O puedes usar router.navigate para redirigir en la misma ventana
     // this.router.navigate(['/']); // Por ejemplo, redirigir a la página de inicio de tu aplicación Angular
 
   }
-  
+  async setCedulas(){
+    // let users=await this.firebase.getUsers1()
+    // //let users=await this.firebase.getUsers2()
+    // users.forEach(async (query)=>{
+    //   let user:any=query.data()
+    //   if(user.uid){
+    //     let doc=user.DOCUMENTO.toString()
+    //     let user3:any=await this.firebase.getUser(doc)
+    //     if(user3){
+    //       user3.uid=user.uid
+    //       await this.firebase.setUser(user3)
+    //     }
+    
+    //   }
+    // })
+  }
+
 
 }

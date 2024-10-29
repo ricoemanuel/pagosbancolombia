@@ -231,9 +231,11 @@ export class MisComprasComponent implements OnInit {
         Swal.fire({
           position: 'top-end',
           icon: 'error',
-          title: 'La transacción no ha sido confirmada, comunícate con tu banco.',
+          title: 'Compra cancelada',
           showConfirmButton: false,
           timer: 2000
+        }).then(()=>{
+          this.router.navigate(['login'], { queryParams: { generarLink: true } });
         })
       }
     })

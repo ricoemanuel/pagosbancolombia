@@ -40,17 +40,18 @@ export class LoginComponent implements AfterViewInit, OnInit {
     let email = `${this.formularioLogin.value.cedula}@gmail.com`
     let password = this.formularioLogin.value.cedula
     this.loginservice.login({ email, password }).then(async (res: any) => {
-      let user=await this.loginservice.getUser(password!)
+      let user:any=await this.loginservice.getUser(password!)
       let compras = await this.loginservice.getFacturaByuser(res.user.uid)
       if(user){
         let pass = true
+        user.uid=res.user.uid
+        await this.loginservice.setUser(user)
         compras.forEach((doc: any) => {
           let compra = doc.data()
-          if (compra.estado !== 'cancelado') {
+          if (compra.estado !== 'cancelado' && compra.evento==="nov-22-2024") {
             pass = false
           }
         })
-        console.log(pass)
         if (!pass) {
           this.spinner = false
           this.router.navigate(["mis-compras"])
